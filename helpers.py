@@ -15,7 +15,6 @@ def draw_grid(screen, top_left: tuple, field_size: tuple, step: int):
 
 def check_boundaries(top_left, field_size, snake_head, step_size):
 
-    print(snake_head)
     #wenn schlange links drüber ist
     if snake_head[0] <= top_left[0]:
         return False
@@ -31,9 +30,14 @@ def check_boundaries(top_left, field_size, snake_head, step_size):
     return True
 
 
-def get_apple_location(tep_left, field_size, step_size):
-    location = (0, 0)
-
+def get_apple_location(top_left, field_size, step_size):
+    max_felder_x = (field_size[0]/step_size) - 1
+    max_felder_y = (field_size[1]/step_size) - 1
+    random_field_x = randint(0, max_felder_x)
+    random_field_y = randint(0, max_felder_y)
+    x_coord = random_field_x * step_size + top_left[0]
+    y_coord = random_field_y * step_size + top_left[1]
+    location = (x_coord, y_coord)
     return location
 
 

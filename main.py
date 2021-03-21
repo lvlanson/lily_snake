@@ -3,7 +3,7 @@
 # Import and initialize the pygame library
 import pygame
 import colors
-from helpers import draw_grid, check_boundaries
+from helpers import draw_grid, check_boundaries, get_apple_location
 
 pygame.init()
 
@@ -24,7 +24,7 @@ snake_pos       = (TOP_LEFT[0] + FIELD_SIZE[0] / 2, TOP_LEFT[1] + FIELD_SIZE[1] 
 snake_head      = pygame.Rect(snake_pos, (STEP_SIZE, STEP_SIZE))
 
 # Apfel
-apple_pos       = (TOP_LEFT[0] + FIELD_SIZE[0] / 4, TOP_LEFT[1] + FIELD_SIZE[1] / 4)
+apple_pos       = get_apple_location(TOP_LEFT, FIELD_SIZE, STEP_SIZE)
 apple           = pygame.Rect(apple_pos, (STEP_SIZE, STEP_SIZE))
 
 # Timer
@@ -47,7 +47,7 @@ while running:
     # Fill the background with white
     screen.fill((255, 255, 255))
     pygame.draw.rect(screen, (0, 0, 0, 0), game_field, 5, border_radius=10)
-    #draw_grid(screen, TOP_LEFT, FIELD_SIZE, STEP_SIZE)
+    draw_grid(screen, TOP_LEFT, FIELD_SIZE, STEP_SIZE)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -97,6 +97,10 @@ while running:
         snake_head = pygame.Rect(snake_pos, (STEP_SIZE, STEP_SIZE))
     pygame.draw.rect(screen, colors.SNAKE_GREEN, snake_head)
     pygame.draw.rect(screen, colors.RED, apple)
+
+    if snake_pos == apple_pos:
+        print("ich bin coooooooooooooooooool")
+
     # Flip the display
     pygame.display.flip()
     clock.tick(10)
